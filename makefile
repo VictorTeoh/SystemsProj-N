@@ -6,4 +6,4 @@ run: all
 
 clean:
 	rm *.o
-rm *~
+	rm *~	
