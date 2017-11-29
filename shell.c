@@ -17,7 +17,7 @@ void print_prompt() {
   char HOME_DIR[64] = "/home/";
   strcat(HOME_DIR, user);
 
-  printf("# %s @ %s in %s [%s]\n", user, hostname, cwd, time);
+  printf("# " BLUE "%s " RESET "@ " GREEN "%s" RESET " in " YELLOW "%s " RESET "[%s]\n", user, hostname, cwd, time);
   printf("$ ");
 }
 
@@ -47,9 +47,7 @@ int main() {
       parse_args(args, commands[i]);
 
       redirect_stdin(args);
-      if (redirect_stdout(args)) {
-        continue;
-      }
+      if (redirect_stdout(args)) {}
 
       else if (strcmp(args[0], "exit") == 0) {
         // TODO: if there are still tasks, tell user tasks are still running
