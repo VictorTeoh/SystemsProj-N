@@ -1,5 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char * get_prompt();
+void print_prompt();
 int main();

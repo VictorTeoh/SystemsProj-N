@@ -1,0 +1,14 @@
+echo -----
+echo BASIC TEST
+echo -----
+ls
+echo -----
+echo SEMICOLON TEST
+echo -----
+ls;ps
+echo -----
+echo CD TEST
+echo -----
+cd ..
+echo EXIT
+exit
