@@ -1,9 +1,10 @@
-all: shell.o
-	gcc -o shell shell.o
+all:
+	gcc -o shell util.c shell.c -g
 
 run: all
 	./shell
 
 clean:
 	rm *.o
-	rm *~	
+	rm *~
+	clear

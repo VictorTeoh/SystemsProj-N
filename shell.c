@@ -1,78 +1,15 @@
 #include "shell.h"
-
-void parse_args( char **args, char *line ){
-  int count = 0;
-  char *arg;
-  while (arg = strsep(&line, " ")){ //check if any delimeters remain
-    args[count] = arg; //assign next argument to separated arg
-    count++;
-  }
-  args[count] = NULL; //null terminate the array
-}
-
-void parse_commands( char **commands, char *line ){
-  int count = 0;
-  char *command;
-  while (command = strsep(&line, ";")){ //check if any delimeters remain
-    strstrip(command);
-    commands[count] = command; //assign next argument to separated arg
-    count++;
-  }
-  commands[count] = NULL; //null terminate the array
-}
-
-int execute( char *file, char **argv ) {
-  int f;
-
-  f = fork();
-
-  if (!f) {
-    execvp(file, argv);
-  }
-
-  int status;
-  wait(&status);
-
-  return 0;
-}
-
-void getctime(char *buffer, size_t size) {
-  struct tm *info;
-  time_t rawtime;
-
-  time( &rawtime );
-  info = localtime( &rawtime );
-
-  strftime(buffer, size, "%H:%M:%S", info);
-}
-
-void strstrip(char *s)
-{
-  size_t size;
-  char *end;
-
-  size = strlen(s);
-
-  if (!size)
-    return;
-
-  end = s + size - 1;
-  while (end >= s && isspace(*end)) {
-    end--;
-  }
-  *(end + 1) = '\0';
-
-  while (*s && isspace(*s)) {
-    strcpy(s, s+1);
-  }
-  
-}
+#include "util.h"
 
 int main() {
 
   char *init_args[2];
   parse_args(init_args, "clear");
   execute(init_args[0], init_args);
+
+  // TODO: add to history function
+  char *history[11];
+  history[10] = NULL;
 
   while(1){
     char buffer[512];
@@ -82,6 +19,7 @@ int main() {
     char cwd[256];
     char time[16];
 
+    // TODO: user broken?
     getlogin_r(user, sizeof(user));
     gethostname(hostname, sizeof(hostname));
     getcwd(cwd, sizeof(cwd));
@@ -106,6 +44,7 @@ int main() {
       parse_args(args, commands[i]);
 
       if (strcmp(args[0], "exit") == 0) {
+        // if there are still tasks, tell user tasks are still running
         return 0;
       }
 
@@ -117,29 +56,29 @@ int main() {
         printf("%s\n", cwd);
       }
 
+      // history, to be implemented
+      else if (args[0][0] == '!') {
+        char *c = &args[0][1];
+        printf("%s\n", c);
+      }
+
+      else if (strcmp(args[0], "history") == 0) {
+        int j = 0;
+        while (history[j]) {
+          printf("%s\n", history[j]);
+          j++;
+        }
+      }
+
       else {
         execute( args[0], args );
       }
-      
+
       i++;
     }
 
     printf("\n");
   }
 
-  
-  /*
-    char cmd1[16] = "ls -a -l";
-    printf("\nExecuting: %s\n", cmd1);
-    char **args = parse_args( cmd1);
-    execvp(args[0], args);
-    /*
-    char cmd2[16] = "ps -A";
-    printf("\nExecuting: %s\n", cmd2);
-    args = parse_args( cmd2);
-    //execvp(args[0], args);
-    */
-
   return 0;
-
 }
