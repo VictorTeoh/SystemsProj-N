@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
@@ -15,6 +16,6 @@ void parse_commands( char **, char * );
 int execute( char *, char ** );
 void getctime( char *, size_t );
 char * get_prompt();
-void redirect_stdin( char ** );
+int redirect_stdin( char ** );
 int redirect_stdout( char ** );
 #endif

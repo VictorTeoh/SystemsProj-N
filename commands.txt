@@ -5,10 +5,15 @@ ls
 echo -----
 echo SEMICOLON TEST
 echo -----
-ls;ps
+ls ; ps
 echo -----
 echo CD TEST
 echo -----
 cd ..
+echo -----
+echo REDIRECTION TEST
+echo -----
+ls > test.txt
+cat < commands.txt
 echo EXIT
 exit

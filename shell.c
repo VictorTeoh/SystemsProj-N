@@ -46,12 +46,19 @@ int main() {
       char *args[10];
       parse_args(args, commands[i]);
 
-      redirect_stdin(args);
-      if (redirect_stdout(args)) {}
+      /*
+      int j = 0;
+      for (; args[j]; j++) {
+        printf("%s\n", args[j]);
+      }
+      */
 
-      else if (strcmp(args[0], "exit") == 0) {
+      int stdout_backup = redirect_stdout(args);
+      int stdin_backup = redirect_stdin(args);
+
+      if (strcmp(args[0], "exit") == 0) {
         // TODO: if there are still tasks, tell user tasks are still running
-        return 0;
+        exit(0);
       }
 
       else if (strcmp(args[0], "cd") == 0) {
@@ -66,6 +73,10 @@ int main() {
 
       else {
         execute( args[0], args );
+        dup2(stdout_backup, 1);
+        close(stdout_backup);
+        dup2(stdin_backup, 0);
+        close(stdin_backup);
       }
 
       i++;
