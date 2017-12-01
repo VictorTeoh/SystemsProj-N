@@ -23,9 +23,8 @@ void parse_commands( char **commands, char *line ){
 
 }
 
-int redirect_stdin(char **args) {
+void redirect_stdin(char **args) {
   int i;
-  int backup = dup(1);
 
   for (i = 0; args[i]; i++) {
     if (args[i][0] == '<') {
@@ -36,13 +35,10 @@ int redirect_stdin(char **args) {
       args[i] = 0;
     }
   }
-
-  return backup;
 }
 
-int redirect_stdout(char **args) {
+void redirect_stdout(char **args) {
   int i;
-  int backup = dup(1);
 
   for (i = 0; args[i]; i++) {
     int f;
@@ -55,8 +51,6 @@ int redirect_stdout(char **args) {
       args[i] = 0;
     }
   }
-
-  return backup;
 }
 
 int execute( char *file, char **argv ) {
@@ -65,7 +59,10 @@ int execute( char *file, char **argv ) {
   f = fork();
 
   if (!f) {
+    redirect_stdin(argv);
+    redirect_stdout(argv);
     execvp(file, argv);
+    printf("%s\n", file);
     printf("sh: command not found: %s\n", file);
     exit(1);
   }

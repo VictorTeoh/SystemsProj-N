@@ -10,10 +10,12 @@ echo -----
 echo CD TEST
 echo -----
 cd ..
+cwd
 echo -----
 echo REDIRECTION TEST
 echo -----
-ls > test.txt
+ls > test
 cat < commands.txt
+cat test
 echo EXIT
 exit

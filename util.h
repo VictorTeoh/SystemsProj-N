@@ -16,6 +16,6 @@ void parse_commands( char **, char * );
 int execute( char *, char ** );
 void getctime( char *, size_t );
 char * get_prompt();
-int redirect_stdin( char ** );
-int redirect_stdout( char ** );
+void redirect_stdin( char ** );
+void redirect_stdout( char ** );
 #endif
