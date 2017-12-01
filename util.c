@@ -2,9 +2,8 @@
 
 void parse_args( char **args, char *line ){
   int count = 0;
-  char *arg;
-  while (arg = strsep(&line, " ")){ //check if any delimeters remain
-    args[count] = arg; //assign next argument to separated arg
+  while (line){ //check if any delimeters remain
+    args[count] = strsep(&line, " "); //assign next argument to separated arg
     count++;
   }
   args[count] = NULL; //null terminate the array
@@ -13,8 +12,8 @@ void parse_args( char **args, char *line ){
 
 void parse_commands( char **commands, char *line ){
   int count = 0;
-  char *command;
-  while (command = strsep(&line, ";")){ //check if any delimeters remain
+  while (line){ //check if any delimeters remain
+    char *command = strsep(&line, ";");
     strstrip(command);
     commands[count] = command; //assign next argument to separated arg
     count++;
