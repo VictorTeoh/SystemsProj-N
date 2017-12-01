@@ -8,16 +8,24 @@ void print_prompt() {
   char time[16];
 
   // TODO: user broken?
-  getlogin_r(user, sizeof(user));
+  //getlogin_r(user, sizeof(user));
+
+  uid_t uid = geteuid();
+  struct passwd *pw = getpwuid(uid);
+  if (pw) {
+    strcpy(user, pw->pw_name);
+  } else {
+    strcpy(user, "user");
+  }
+
   gethostname(hostname, sizeof(hostname));
   getcwd(cwd, sizeof(cwd));
   getctime(time, sizeof(time));
 
   // could use this to implement ~ if we could replace strings
-  char HOME_DIR[64] = "/home/";
-  strcat(HOME_DIR, user);
+  char *HOME_DIR = getenv("HOME");
 
-  printf(LIGHT_BLUE "# " CYAN "%s " RESET "@ " GREEN "%s" RESET " in " YELLOW BOLD "%s " RESET LIGHT_GRAY "[%s]" RESET "\n", user, hostname, cwd, time);
+  printf(LIGHT_BLUE "# " CYAN "%s " RESET "@ " GREEN "%s" RESET " in " YELLOW BOLD "%s " RESET LIGHT_GRAY "[%s]" RESET " SHELL\n", user, hostname, cwd, time);
   printf(RED BOLD "$ " RESET);
 }
 
@@ -38,44 +46,7 @@ int main() {
     fgets(buffer, sizeof(buffer), stdin);
     buffer[strlen(buffer)-1] = 0;
 
-    char *commands[10];
-    parse_commands(commands, buffer);
-
-    int i = 0;
-    while (commands[i] != NULL) {
-      char *args[10];
-      parse_args(args, commands[i]);
-
-      /*
-      int j = 0;
-      for (; args[j]; j++) {
-        printf("%s\n", args[j]);
-      }
-      */
-
-      if (strcmp(args[0], "exit") == 0) {
-        // TODO: if there are still tasks, tell user tasks are still running
-        exit(0);
-      }
-
-      else if (strcmp(args[0], "cd") == 0) {
-        chdir(args[1]);
-      }
-
-      else if (strcmp(args[0], "cwd") == 0) {
-        char cwd[256];
-        getcwd(cwd, sizeof(cwd));
-        printf("%s\n", cwd);
-      }
-
-      else {
-        execute( args[0], args );
-      }
-
-      i++;
-    }
-
-    printf("\n");
+    run_command( buffer );
   }
 
   return 0;

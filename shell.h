@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pwd.h>
 
 #define BOLD       "\x1b[1m"
 #define RED        "\x1b[31m"

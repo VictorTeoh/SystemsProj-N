@@ -53,7 +53,45 @@ void redirect_stdout(char **args) {
   }
 }
 
+void run_command( char *buffer ) {
+  char *commands[10];
+  parse_commands(commands, buffer);
+
+  int i = 0;
+  while (commands[i] != NULL) {
+    char *args[10];
+    parse_args(args, commands[i]);
+
+    if (strcmp(args[0], "exit") == 0) {
+      // TODO: if there are still tasks, tell user tasks are still running
+      exit(0);
+    }
+
+    else if (strcmp(args[0], "cd") == 0) {
+      chdir(args[1]);
+    }
+
+    else if (strcmp(args[0], "cwd") == 0) {
+      char cwd[256];
+      getcwd(cwd, sizeof(cwd));
+      printf("%s\n", cwd);
+    }
+
+    else {
+      execute( args[0], args );
+    }
+
+    i++;
+  }
+
+  printf("\n");
+}
+
 int execute( char *file, char **argv ) {
+  if (strcmp(file,"") == 0) {
+    return 0;
+  }
+
   int f;
 
   f = fork();

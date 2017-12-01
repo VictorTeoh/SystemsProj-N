@@ -18,4 +18,5 @@ void getctime( char *, size_t );
 char * get_prompt();
 void redirect_stdin( char ** );
 void redirect_stdout( char ** );
+void run_command( char * );
 #endif
