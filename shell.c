@@ -7,9 +7,6 @@ void print_prompt() {
   char cwd[256];
   char time[16];
 
-  // TODO: user broken?
-  //getlogin_r(user, sizeof(user));
-
   uid_t uid = geteuid();
   struct passwd *pw = getpwuid(uid);
   if (pw) {
@@ -23,7 +20,7 @@ void print_prompt() {
   getctime(time, sizeof(time));
 
   // could use this to implement ~ if we could replace strings
-  char *HOME_DIR = getenv("HOME");
+  // char *HOME_DIR = getenv("HOME");
 
   printf(LIGHT_BLUE "# " CYAN "%s " RESET "@ " GREEN "%s" RESET " in " YELLOW BOLD "%s " RESET LIGHT_GRAY "[%s]" RESET " SHELL\n", user, hostname, cwd, time);
   printf(RED BOLD "$ " RESET);
