@@ -17,5 +17,9 @@ echo -----
 ls > test
 cat < commands.txt
 cat test
+echo -----
+echo PIPE TEST
+echo -----
+ls -l | wc
 echo EXIT
 exit

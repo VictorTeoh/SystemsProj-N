@@ -63,6 +63,27 @@ void redirect_stdout(char **args) {
   }
 }
 
+void pipe_(char **args) {
+  int i, l;
+  for (i = 0; args[i]; i++) {
+    if (args[i][0] == '|') {
+      
+      char first[256] = "";
+      for(l = 0; l < i; l++){
+	strcat(first, args[l]);
+	strcat(first, " ");
+	printf("%s", first);
+      }
+      
+      FILE *fp = popen(first, "r");
+      int f = fileno(fp);
+      dup2(f, 0);
+      close(f);
+      args += i + 1;
+      execvp(args[0], args); 
+    }
+  }
+}
 
 void run_command( char *buffer ) {
   char *commands[10];
@@ -110,6 +131,7 @@ int execute( char *file, char **argv ) {
   if (!f) {
     redirect_stdin(argv);
     redirect_stdout(argv);
+    pipe_(argv);
     execvp(file, argv);
     printf("%s\n", file);
     printf("sh: command not found: %s\n", file);
