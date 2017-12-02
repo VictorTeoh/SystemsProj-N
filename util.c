@@ -41,16 +41,28 @@ void redirect_stdout(char **args) {
 
   for (i = 0; args[i]; i++) {
     int f;
+    char *filename;
 
     if (args[i][0] == '>') {
-      char *filename = args[i+1];
-      f = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0664);
-      dup2(f, 1);
-      close(f);
-      args[i] = 0;
+      if (strlen(args[i]) >= 2 && args[i][1] == '>') {
+        // append
+        filename = args[i+1];
+        f = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0664);
+        dup2(f, 1);
+        close(f);
+        args[i] = 0;
+      }
+      else {
+        filename = args[i+1];
+        f = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+        dup2(f, 1);
+        close(f);
+        args[i] = 0;
+      }
     }
   }
 }
+
 
 void run_command( char *buffer ) {
   char *commands[10];
