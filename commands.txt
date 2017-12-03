@@ -7,11 +7,6 @@ echo SEMICOLON TEST
 echo -----
 ls ; ps
 echo -----
-echo CD TEST
-echo -----
-cd ..
-cwd
-echo -----
 echo REDIRECTION TEST
 echo -----
 ls > test
@@ -21,5 +16,10 @@ echo -----
 echo PIPE TEST
 echo -----
 ls -l | wc
+echo -----
+echo CD TEST
+echo -----
+cd ..
+cwd
 echo EXIT
 exit

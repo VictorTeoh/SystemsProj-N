@@ -92,20 +92,20 @@ void pipe_(char **args) {
   int i, l;
   for (i = 0; args[i]; i++) {
     if (args[i][0] == '|') {
-      
+
       char first[256] = "";
       for(l = 0; l < i; l++){
-	strcat(first, args[l]);
-	strcat(first, " ");
-	printf("%s", first);
+        strcat(first, args[l]);
+        strcat(first, " ");
+        printf("%s", first);
       }
-      
+
       FILE *fp = popen(first, "r");
       int f = fileno(fp);
       dup2(f, 0);
       close(f);
       args += i + 1;
-      execvp(args[0], args); 
+      execvp(args[0], args);
     }
   }
 }
@@ -144,9 +144,9 @@ void run_command( char *buffer ) {
   printf("\n");
 }
 
-int execute( char *file, char **argv ) {
+void execute( char *file, char **argv ) {
   if (strcmp(file,"") == 0) {
-    return 0;
+    return;
   }
 
   int f;
@@ -166,7 +166,7 @@ int execute( char *file, char **argv ) {
   int status;
   wait(&status);
 
-  return 0;
+  return;
 
 }
 

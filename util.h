@@ -13,7 +13,7 @@
 void strstrip(char *);
 void parse_args( char **, char * );
 void parse_commands( char **, char * );
-int execute( char *, char ** );
+void execute( char *, char ** );
 void getctime( char *, size_t );
 char * get_prompt();
 void redirect_stdin( char ** );
