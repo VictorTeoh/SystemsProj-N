@@ -42,15 +42,39 @@ void redirect_stdout(char **args) {
   for (i = 0; args[i]; i++) {
     int f;
     char *filename;
+    int append = 0;
 
-    if (args[i][0] == '>') {
-      if (strlen(args[i]) >= 2 && args[i][1] == '>') {
-        // append
-        filename = args[i+1];
-        f = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0664);
-        dup2(f, 1);
-        close(f);
-        args[i] = 0;
+
+    // rethink logic
+    if (strchr(args[i], '>')) {
+      if (strlen(args[i]) >= 2) {
+
+        if (strstr(args[i], ">>")) {
+          append = O_APPEND;
+        }
+
+        if (args[i][0] == '2') {
+          // stderr
+          f = open(filename, O_WRONLY | append | O_CREAT, 0664);
+          dup2(f, 2);
+          close(f);
+        }
+        else if (args[i][0] == '&') {
+          // stdout and stderr
+          f = open(filename, O_WRONLY | append | O_CREAT, 0664);
+          dup2(f, 1);
+          dup2(f, 2);
+          close(f);
+        }
+        else {
+          // stdout
+          filename = args[i+1];
+          f = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0664);
+          dup2(f, 1);
+          close(f);
+          args[i] = 0;
+        }
+
       }
       else {
         filename = args[i+1];
@@ -60,6 +84,7 @@ void redirect_stdout(char **args) {
         args[i] = 0;
       }
     }
+
   }
 }
 
