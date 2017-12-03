@@ -12,5 +12,20 @@
 #define LIGHT_GRAY "\x1b[37m"
 #define RESET      "\x1b[0m"
 
+/*======== void print_prompt() ==========
+   Inputs: none
+   Returns: none
+
+   Prints the prompt after each command
+   The prompt features the user name (!!!), hostname, the cwd, and time in color
+   Styling is based off of zsh ys theme
+   ====================*/
 void print_prompt();
+
+/*======== int main() ==========
+  Inputs: none
+  Returns: int
+
+  Main shell execution function
+  ====================*/
 int main();

@@ -1,25 +1,43 @@
 echo -----
-echo BASIC TEST
+echo TESTING LS
 echo -----
+echo [ls]
 ls
+echo
+
 echo -----
-echo SEMICOLON TEST
+echo TESTING SEMICOLON
 echo -----
+echo [ls semicolon ps]
 ls ; ps
+echo
+
 echo -----
-echo REDIRECTION TEST
+echo TESTING REDIRECTION
 echo -----
-ls > test
-cat < commands.txt
-cat test
+echo [ps (stdout redirect) test]
+ps > test
+echo [ls -a -l (stdout append) test]
+ls -a -l >> test
+echo [test (stdin redirect) cat]
+cat < test
+echo [rm test]
+rm test
+echo
+
 echo -----
-echo PIPE TEST
+echo PIPING TEST
 echo -----
-ls -l | wc
+echo [ls -a pipe wc]
+ls -a | wc
+echo
+
 echo -----
 echo CD TEST
 echo -----
+echo [cd ..]
 cd ..
+echo [cwd]
 cwd
 echo EXIT
 exit

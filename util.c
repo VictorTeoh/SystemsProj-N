@@ -159,7 +159,7 @@ void execute( char *file, char **argv ) {
     pipe_(argv);
     execvp(file, argv);
     printf("%s\n", file);
-    printf("sh: command not found: %s\n", file);
+    printf("cshell: command not found: %s\n", file);
     exit(1);
   }
 

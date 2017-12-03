@@ -22,7 +22,7 @@ void print_prompt() {
   // could use this to implement ~ if we could replace strings
   // char *HOME_DIR = getenv("HOME");
 
-  printf(LIGHT_BLUE "# " CYAN "%s " RESET "@ " GREEN "%s" RESET " in " YELLOW BOLD "%s " RESET LIGHT_GRAY "[%s]" RESET " SHELL\n", user, hostname, cwd, time);
+  printf(LIGHT_BLUE "# " CYAN "%s " RESET "@ " GREEN "%s" RESET " in " YELLOW BOLD "%s " RESET LIGHT_GRAY "[%s]" RESET "\n", user, hostname, cwd, time);
   printf(RED BOLD "$ " RESET);
 }
 
