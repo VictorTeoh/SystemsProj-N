@@ -1,4 +1,4 @@
-# Shell name
+# cshell
 
 by Ryan Siu and Victor Teoh
 
