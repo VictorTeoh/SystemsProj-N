@@ -9,7 +9,7 @@ by Ryan Siu and Victor Teoh
 - Redirects using >, <
 - Pipes using |
 - Color prompts with hostname, username, cwd, and current time!
-- Elegant message if command not found, or prompts again if no command entered
+- Elegant message appears if command not found, or prompts again if no command entered
 
 ## Attempted
 - Tried replacing ~ with user's home directory in prompt and input
@@ -46,14 +46,14 @@ by Ryan Siu and Victor Teoh
 ### util.c
 - Handles line parsing
 - Handles command execution, including piping and redirection
-- Utility functions
+- Contains utility functions
 
 	```
 	/*======== void strstrip( char * ) ==========
 	Inputs:  char *s 
 	Returns: none
 
-	Removes leading and trailing whitespace on the string line.
+	Removes leading and trailing whitespace in the string line.
 	Terminating '\0' is inserted at a new location if necessary.
 	====================*/
 	
@@ -108,7 +108,7 @@ by Ryan Siu and Victor Teoh
 	Inputs:  char **args
 	Returns: none
 
-	Redirect stdout from one command to stdin of the next
+	Redirect stdout from precedeing command to stdin of the next command
 	====================*/
 	
 	/*======== void run_command ( char * ) ==========
