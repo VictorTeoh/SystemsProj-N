@@ -128,12 +128,6 @@ void run_command( char *buffer ) {
       chdir(args[1]);
     }
 
-    else if (strcmp(args[0], "cwd") == 0) {
-      char cwd[256];
-      getcwd(cwd, sizeof(cwd));
-      printf("%s\n", cwd);
-    }
-
     else {
       execute( args[0], args );
     }
