@@ -1,18 +1,25 @@
-
 # cshell
-
+Systems Level Programming<br>
+Project 01<br>
 by Ryan Siu and Victor Teoh
 
 ## Features
 - Forks and executes commands!  
 - Parses multiple commands separated by semicolons  
-- Redirects stdout, and stdin using >, < respectively 
-- Simple piping
+- Redirects using >, <
+- Pipes using |
+- Color prompts with hostname, username, cwd, and current time!
+- Elegant message if command not found, or prompts again if no command entered
 
 ## Attempted
-- Tried replacing ~/ with home directory
+- Tried replacing ~ with user's home directory in prompt and input
 
 ## Bugs
+- Limitation on size of input
+- Limitation on size of cwd, hostname, username for prompt printing
+- Tokens have to be separated by spaces
+- Echo cannot print out special characters, such as ; and |
+- Piping is restricted to 1 pipe
 	
 ## Files & Function Headers
 
@@ -96,7 +103,6 @@ by Ryan Siu and Victor Teoh
 
 	Redirects stdout to a file if > character is in args
 	====================*/
-	
 	
 	/*======== void pipe_ ( char ** ) ==========
 	Inputs:  char **args
