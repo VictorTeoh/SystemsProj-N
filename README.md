@@ -9,7 +9,7 @@ by Ryan Siu and Victor Teoh
 - Redirects using >, <
 - Pipes using |
 - Color prompts with hostname, username, cwd, and current time!
-- Elegant message appears if command not found, or prompts again if no command entered
+- Elegant message appears if command is not found, or prompts again if no command was entered
 
 ## Attempted
 - Tried replacing ~ with user's home directory in prompt and input
