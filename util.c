@@ -158,7 +158,6 @@ void execute( char *file, char **argv ) {
     redirect_stdout(argv);
     pipe_(argv);
     execvp(file, argv);
-    printf("%s\n", file);
     printf("cshell: command not found: %s\n", file);
     exit(1);
   }
