@@ -1,3 +1,4 @@
+
 # cshell
 
 by Ryan Siu and Victor Teoh
@@ -5,7 +6,8 @@ by Ryan Siu and Victor Teoh
 ## Features
 - Forks and executes commands!  
 - Parses multiple commands separated by semicolons  
-- Redirects using >, < 
+- Redirects stdout, and stdin using >, < respectively 
+- Simple piping
 
 ## Attempted
 - Tried replacing ~/ with home directory
@@ -94,6 +96,7 @@ by Ryan Siu and Victor Teoh
 
 	Redirects stdout to a file if > character is in args
 	====================*/
+	
 	
 	/*======== void pipe_ ( char ** ) ==========
 	Inputs:  char **args
